@@ -7,6 +7,10 @@ nltk.download('wordnet')
 import pickle
 from nltk.corpus import stopwords
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import SGDClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
 
 corpus_data = load_files(r"/home/y/Documents/corpus")
 X, y = corpus_data.data, corpus_data.target
@@ -58,20 +62,33 @@ X = tfidfconverter.fit_transform(documents).toarray()
 
 
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-
-classifier = RandomForestClassifier(n_estimators=1000, random_state=0)
-classifier.fit(X_train, y_train)
-
-y_pred = classifier.predict(X_test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
 
 
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+rf_clf = RandomForestClassifier()
+rf_clf.fit(X_train, y_train)
+predicted = rf_clf.predict(X_test)
+print(np.mean(predicted == y_test))
 
-print(confusion_matrix(y_test,y_pred))
-print(classification_report(y_test,y_pred))
-print(accuracy_score(y_test, y_pred))
+nb_clf = MultinomialNB()
+nb_clf.fit(X_train, y_train)
+predicted = nb_clf.predict(X_test)
+print(np.mean(predicted == y_test))
 
+sgd_clf = SGDClassifier()
+sgd_clf.fit(X_train, y_train)
+predicted = sgd_clf.predict(X_test)
+print(np.mean(predicted == y_test))
+
+kn_clf = KNeighborsClassifier()
+kn_clf.fit(X_train, y_train)
+predicted = kn_clf.predict(X_test)
+print(np.mean(predicted == y_test))
+
+lr_clf = LogisticRegression()
+lr_clf.fit(X_train, y_train)
+predicted = lr_clf.predict(X_test)
+print(np.mean(predicted == y_test))
 
 
 
