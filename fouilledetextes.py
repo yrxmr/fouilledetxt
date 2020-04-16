@@ -90,6 +90,10 @@ lr_clf.fit(X_train, y_train)
 predicted = lr_clf.predict(X_test)
 print(np.mean(predicted == y_test))
 
-
+tree_clf = DecisionTreeClassifier()
+tree_clf.fit(X_train,y_train)
+predicted = tree_clf.predict(X_test)
+print("Accuracy for the Decision Tree Classifier:")
+print(np.mean(predicted == y_test))
 
 
