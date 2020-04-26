@@ -1,3 +1,6 @@
+#le script est à exécuter sur un dossier comprenant des sous-dossiers, chacun correspondant à une catégorie et comprenant
+#les fichiers TXT de la catégorie donnée 
+
 import numpy as np
 import re
 import nltk
